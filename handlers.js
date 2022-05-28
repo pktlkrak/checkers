@@ -64,7 +64,8 @@ export function handleMove(data, broadcast){
     broadcast("C_MOVE", data);
     if(timeout !== -1) clearTimeout(timeout);
     timeout = setTimeout(() => {
-        broadcast("C_WIN", { id: getOppositeID(turn) });
+        const oppositeID = getOppositeID(turn);
+        broadcast("C_WIN", { id: oppositeID, username: Object.entries(users).find(n => n[1] === oppositeID)[0] });
     }, 30000);
     turn = Object.entries(users).filter(([uname, id]) => id !== turn)[0][1];
     broadcast('C_TURN', {id: turn});
