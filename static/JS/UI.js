@@ -18,13 +18,13 @@ export default class UI{
         this.showInfobox();
     }
 
-    showPlayingAs(name, myTurn){
+    showPlayingAs(name, myTurn, username){
         if(this.tempInterval !== -1) clearInterval(this.tempInterval);
         this.closeLogin();
         let time = 30;
         
         const temp =( ) => {
-            this.notify(`You are playing as the ${name}. ${myTurn ? "It is now your turn." : `It's now ${window.net.opponentName}'s turn.`} ${myTurn ? "You have " : "They have "} ${time} more seconds.`, !myTurn && window.game.colorName !== "spectator");
+            this.notify(`You are playing as the ${name}. ${myTurn ? "It is now your turn." : `It's now ${username || window.net.opponentName}'s turn.`} ${myTurn ? "You have " : "They have "} ${time} more seconds.`, !myTurn && window.game.colorName !== "spectator");
             time -= 1;
         }
         temp();

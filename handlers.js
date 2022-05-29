@@ -36,7 +36,7 @@ export async function handleUserLogin( { username }, broadcastEvent, id ){
         broadcastEvent("C_INIT", {
             ...STATE
         });
-        broadcastEvent("C_TURN", { id });
+        broadcastEvent("C_TURN", { id, username });
         turn = id;
         if(timeout !== -1) clearTimeout(timeout);
         timeout = setTimeout(() => {
@@ -67,8 +67,10 @@ export function handleMove(data, broadcast){
         const oppositeID = getOppositeID(turn);
         broadcast("C_WIN", { id: oppositeID, username: Object.entries(users).find(n => n[1] === oppositeID)[0] });
     }, 30000);
-    turn = Object.entries(users).filter(([uname, id]) => id !== turn)[0][1];
-    broadcast('C_TURN', {id: turn});
+    let info =  Object.entries(users).filter(([uname, id]) => id !== turn)[0];
+    turn = info[1];
+    let username = info[0];
+    broadcast('C_TURN', {id: turn, username });
     return simpleAccept();
 }
 

@@ -28,9 +28,9 @@ export default class Net{
         }
     }
 
-    handleTurn({ id }){
+    handleTurn({ id, username }){
         this.myTurn = this.id === id;
-        window.ui.showPlayingAs(window.game.colorName, this.myTurn);
+        window.ui.showPlayingAs(window.game.colorName, this.myTurn, username);
     }
 
     handleMove({ from, to }){
